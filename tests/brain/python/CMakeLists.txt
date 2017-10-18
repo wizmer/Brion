@@ -5,10 +5,15 @@
 #
 # Change this number when adding tests to force a CMake run: 2
 
-if(NOT TARGET BBPTestData OR NOT TARGET brain_python)
+if(NOT TARGET brain_python)
   return()
 endif()
 
-set(PYTHON_TEST_DEPENDENCIES brain_python)
+if(NOT TARGET BBPTestData)
+  set(PYTHON_TEST_EXCLUDE circuit.py compartmentReport.py morphology.py
+    spikes.py synapses.py)
+endif()
+
 include(CommonPythonCTest)
+set(PYTHON_TEST_DEPENDENCIES brain_python)
 configure_file(setup.py.in ${PYTHON_TEST_OUTPUT_PATH}/setup.py)

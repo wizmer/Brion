@@ -24,6 +24,9 @@
 #include "detail/circuit.h"
 
 #include "synapsesStream.h"
+
+#include <servus/uint128_t.h>
+
 #include <boost/algorithm/string.hpp>
 
 namespace brain
@@ -117,7 +120,11 @@ neuron::Morphologies Circuit::loadMorphologies(const GIDSet& gids,
         ++gid;
     }
 
+#ifdef BRAIN_USE_KEYV
     CachedMorphologies cached = _impl->loadMorphologiesFromCache(hashSet);
+#else
+    CachedMorphologies cached;
+#endif
     using MorphologyUse = std::pair<size_t, brion::MorphologyPtr>;
     std::unordered_map<std::string, MorphologyUse> loading;
 
@@ -177,7 +184,9 @@ neuron::Morphologies Circuit::loadMorphologies(const GIDSet& gids,
                 // share unmodified brion data
                 morphology.reset(new neuron::Morphology(load.second));
 
+#ifdef BRAIN_USE_KEYV
             _impl->saveMorphologyToCache(uri.getPath(), hash, morphology);
+#endif
             it->second = morphology;
             result.push_back(morphology);
         }

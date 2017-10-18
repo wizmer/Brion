@@ -34,6 +34,8 @@
 #include <lunchbox/log.h>
 #include <lunchbox/scopedMutex.h>
 
+#include <servus/uint128_t.h>
+
 namespace brain
 {
 namespace
@@ -224,8 +226,12 @@ struct Synapses::Impl : public Synapses::BaseImpl
             hashes.push_back(gidHash);
         }
 
+#if BRAIN_USE_KEYV
         const CachedSynapses loaded =
             _circuit._impl->loadSynapsePositionsFromCache(hashes);
+#else
+        const CachedSynapses loaded;
+#endif
 
         const bool haveSize = _size > 0;
 
@@ -276,8 +282,10 @@ struct Synapses::Impl : public Synapses::BaseImpl
             const brion::SynapseMatrix pos =
                 cached ? it->second : readFromFile();
 
+#ifdef BRAIN_USE_KEYV
             if (!cached)
                 _circuit._impl->saveSynapsePositionsToCache(gid, *hash, pos);
+#endif
             ++hash;
 
             for (size_t j = 0; j < pos.size(); ++j)

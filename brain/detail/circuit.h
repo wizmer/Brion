@@ -29,10 +29,13 @@
 #include <brion/synapseSummary.h>
 #include <brion/target.h>
 
-#include <keyv/Map.h>
 #include <lunchbox/lockable.h>
 #include <lunchbox/log.h>
 #include <lunchbox/scopedMutex.h>
+
+#ifdef BRAIN_USE_KEYV
+#include <keyv/Map.h>
+#endif
 
 #ifdef BRAIN_USE_MVD3
 #include <highfive/H5Utility.hpp>
@@ -154,7 +157,9 @@ public:
         , _morphologySource(config.getMorphologySource())
         , _synapseSource(config.getSynapseSource())
         , _targetSources(config.getTargetSources())
+#if BRAIN_USE_KEYV
         , _cache(keyv::Map::createCache())
+#endif
         , _synapsePositionColumns(0)
     {
         for (auto&& projection :
@@ -313,6 +318,7 @@ public:
         return *positions;
     }
 
+#ifdef BRAIN_USE_KEYV
     void saveMorphologyToCache(const std::string& uri, const std::string& hash,
                                neuron::MorphologyPtr morphology) const
     {
@@ -361,7 +367,9 @@ public:
                << " remaining from file" << std::endl;
         return loaded;
     }
+#endif
 
+#if BRAIN_USE_KEYV
     void saveSynapsePositionsToCache(const uint32_t gid,
                                      const std::string& hash,
                                      const brion::SynapseMatrix& value) const
@@ -419,6 +427,7 @@ public:
                 << std::endl;
         return loaded;
     }
+#endif
 
     void _findSynapsePositionsColumns() const
     {
@@ -435,7 +444,9 @@ public:
     std::unordered_map<std::string, brion::URI> _afferentProjectionSources;
     const brion::URIs _targetSources;
     mutable brion::Targets _targetParsers;
+#if BRAIN_USE_KEYV
     mutable keyv::MapPtr _cache;
+#endif
 
     template <typename T>
     using LockPtr = lunchbox::Lockable<std::unique_ptr<T>>;
