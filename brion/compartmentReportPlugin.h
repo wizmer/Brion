@@ -20,7 +20,7 @@
 #pragma once
 
 #include <brion/api.h>
-#include <brion/pluginInitData.h>
+#include <morphio/pluginInitData.h>
 #include <brion/types.h>
 
 #include <boost/noncopyable.hpp>
@@ -47,7 +47,7 @@ public:
      */
     CompartmentReportInitData(const URI& uri, const int accessMode,
                               const GIDSet& gids = GIDSet())
-        : PluginInitData(uri, accessMode)
+        : minimorph::PluginInitData(uri, accessMode)
         , initMapping(true)
         , _gids(gids)
     {

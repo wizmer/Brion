@@ -20,6 +20,9 @@
 #ifndef BRION_TYPES
 #define BRION_TYPES
 
+#include <minimorph/enums.h>
+#include <minimorph/types.h>
+
 #include <brion/enums.h>
 
 #include <boost/multi_array.hpp>
