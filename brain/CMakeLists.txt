@@ -9,10 +9,6 @@ set(BRAIN_PUBLIC_HEADERS
   compartmentReport.h
   compartmentReportView.h
   compartmentReportMapping.h
-  neuron/morphology.h
-  neuron/section.h
-  neuron/soma.h
-  neuron/types.h
   spikeReportReader.h
   spikeReportWriter.h
   synapse.h
@@ -26,7 +22,6 @@ set(BRAIN_HEADERS
   detail/circuit.h
   detail/compartmentReport.h
   detail/synapsesStream.h
-  neuron/morphologyImpl.h
   )
 
 set(BRAIN_SOURCES
@@ -34,10 +29,6 @@ set(BRAIN_SOURCES
   compartmentReport.cpp
   compartmentReportView.cpp
   compartmentReportMapping.cpp
-  neuron/morphology.cpp
-  neuron/morphologyImpl.cpp
-  neuron/section.cpp
-  neuron/soma.cpp
   spikeReportReader.cpp
   spikeReportWriter.cpp
   synapse.cpp

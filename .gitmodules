@@ -4,3 +4,6 @@
 [submodule "Pydoxine"]
 	path = Pydoxine
 	url = https://github.com/BlueBrain/Pydoxine
+[submodule "MorphIO"]
+	path = MorphIO
+	url = ssh://bbpgb019.bbp.epfl.ch:/home/git/morphio

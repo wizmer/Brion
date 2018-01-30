@@ -10,8 +10,6 @@ set(BRIONPLUGINS_HEADERS
   compartmentReportDummy.h
   compartmentReportHDF5.h
   compartmentReportMap.h
-  morphologyHDF5.h
-  morphologySWC.h
   spikeReportASCII.h
   spikeReportBinary.h
   spikeReportBluron.h
@@ -24,8 +22,6 @@ set(BRIONPLUGINS_SOURCES
   compartmentReportDummy.cpp
   compartmentReportHDF5.cpp
   compartmentReportMap.cpp
-  morphologyHDF5.cpp
-  morphologySWC.cpp
   spikeReportASCII.cpp
   spikeReportBinary.cpp
   spikeReportBluron.cpp
@@ -37,12 +33,6 @@ set(BRIONPLUGINS_LINK_LIBRARIES
           ${Boost_REGEX_LIBRARIES} ${Boost_IOSTREAMS_LIBRARIES}
           ${CMAKE_THREADS_LIB_INIT}
 )
-
-if(BRION_USE_ZEROEQ AND TARGET ZeroEQ)
-  list(APPEND BRIONPLUGINS_HEADERS morphologyZeroEQ.h)
-  list(APPEND BRIONPLUGINS_SOURCES morphologyZeroEQ.cpp)
-  list(APPEND BRIONPLUGINS_LINK_LIBRARIES ZeroEQ)
-endif()
 
 set(BRIONPLUGINS_OMIT_LIBRARY_HEADER ON)
 set(BRIONPLUGINS_OMIT_VERSION_HEADERS ON)
